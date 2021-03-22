@@ -65,22 +65,32 @@ def objectCreator
   puts "Player 2,enter your name: "
   p2 = gets.chomp
   x = rand
-  puts x
   if x > 0.5
     selector = [Player.new(p2),Player.new(p1)]
   else
     selector = [Player.new(p1),Player.new(p2)]
   end
-  puts "#{selector[0].name} has been chosen by the gods of computing to play as X and #{selector[1].name} has been chosen to play as O"
+  puts "#{selector[0].name.capitalize} has been chosen by the gods of computing to play as X and #{selector[1].name.capitalize} has been chosen to play as O"
   return selector
 end
 def printScore(array)
+  puts
   for i in 0..2 do
     for j in 0..2 do
-      print array[i][j].to_s + " "
+      if j == 0
+        print " " + array[i][j].to_s + " | "
+        next
+      end
+      if j == 2
+        puts array[i][j].to_s 
+        next
+      end
+      print array[i][j].to_s + " | "
     end
-  puts
+    next if i == 2
+    puts "---+---+--- "
   end
+  puts
 end
 def winAnnouncement(name)
   puts "#{name} has won the match."
@@ -101,14 +111,26 @@ def conversion(n)
   return a 
 end
 def printLayout
+  puts
   k = 1
   for i in 1..3 do
     for j in 1..3 do
-      print k.to_s + " "
+      if j == 1
+        print " " + k.to_s + " | "
+        k+=1
+        next
+      end
+      if j == 3
+        puts k.to_s 
+        next
+      end
+      print k.to_s + " | "
       k+=1
     end
-    puts
+    next if i == 3
+    puts "---+---+--- "
   end
+  puts
 end
 def getMovement(array,obj)
   puts "Chance for #{obj.symbol} to enter"
@@ -117,7 +139,7 @@ def getMovement(array,obj)
   a = conversion(n)
   i = a[0]
   j = a[1]
-  until array[i][j] == "#" do
+  until array[i][j].is_a? Integer do
     puts "The position is already occupied"
     puts "Chance for #{obj.symbol} to enter"
     puts "Enter your position based on the layout above: "
@@ -130,7 +152,7 @@ def getMovement(array,obj)
   return [i,j]
 end
 def playRound
-  array = [["#","#","#"],["#","#","#"],["#","#","#"]]
+  array = [[1,2,3],[4,5,6],[7,8,9]]
   spa = objectCreator
   p1 = spa[0]
   p2 = spa[1]
