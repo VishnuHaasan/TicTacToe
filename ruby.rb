@@ -119,9 +119,10 @@ def printLayout
         print " " + k.to_s + " | "
         k+=1
         next
-      end
+      end     
       if j == 3
         puts k.to_s 
+        k+=1
         next
       end
       print k.to_s + " | "
